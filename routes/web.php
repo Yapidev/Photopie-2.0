@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Middleware\CheckGuest;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,8 @@ Route::get('/', function () {
 Route::middleware(CheckGuest::class)->group(function () {
     Route::get('login', App\Livewire\Auth\Login::class)->name('login');
     Route::get('register', App\livewire\Auth\Register::class)->name('register');
+    Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
+    Route::get('login/google/callback', [GoogleAuthController::class, 'callbackGoogle']);
 });
 
 // User Routes
